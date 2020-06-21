@@ -1,0 +1,66 @@
+Parameter	Value 			% Comment			
+Fs		44100			% Sampling frequency (Hz)				
+humidity	40			% Relative humidity of air (%) (Used to calculate air absorption coefficient "m", valid range 20< h <70)
+TEMP		20			% Temperature of air (deg C) (Used to calculate speed of sound c (m/s))
+order		5			% If -ve then a value will be computed, else value supplied here is used (limits order of reflections computed)
+H_length	-1			% Length of Impulse Response. If -ve then a value will be computed, else value supplied here is used"
+H_filename	H_ROOM_2M_3S		% Filename for impulse response.
+air_F		1			% 0 = no absorption due to air, 1 = air absorption is present.
+dist_F		1			% 0 = no distance attenuation applied (ie no 1/R effect), 1= distance attenuation applied									
+Fc_HP		100.00			% 0 = no high-pass filter. If scalar value supplied for cut-off frequency Fc_HP then high-pass filter applied.
+smooth_F	1			% 0 = no smoothing filter applied, 1= smoothing filter used. (Not used for MIT or CIPIC)
+plot_F2		1			% 0 = no plot, 1 = 2D-plan, shows image rooms and sources on constant z plane."
+plot_F3		1			% 0 = no plot, 1 = 3D-plot, shows image sources. Rotatable in MATLAB"
+alpha_F		0			% 0 = fixed transparent surfaces for Room Geometry plot, 1 = (surface opacity = reflectivity)									
+Lx		4			% Room Length (m) x direction
+Ly		3			% Room Width (m) y direction
+Lz		2.75			% Room Height (m) z direction
+xp		1			% Receiver x co-ordinate (m)
+yp		1			% Receiver y co-ordinate (m)
+zp		1.2			% Receiver z co-ordinate (m) e.g. 1.2m is a typical height above floor of ears of seated human subject
+Receiver	two_mic			% Receiver, copy one of these:	one_mic	two_mic	mithrir	cipicir	NB all strings must be same length for later logical tests.
+sensor_space	0.145			% Sensor separation in 'two_mic' case (0.145 m is CIPIC average)
+MIT_root	MIT_HRTF		% The root of MIT Kemar data base file									
+subdir1		Kemar			% MIT sub-directory1 name
+subdir2		compact			% MIT sub-directory2 name
+filename	hrir_final.mat		% MIT filename for HRIR
+CIPIC_root	CIPIC_HRTF		% The root of the CIPIC data base files									
+subdir1		standard_hrir_database	% CIPIC sub-directory1 name									
+subdir2		subject_		% CIPIC sub-directory2 name (program combines this with subject number)									
+S_No		021			% CIPIC subject number, format '&&&' (e.g. '021' is the Kemar with small pinnae)									
+filename	hrir_final.mat		% CIPIC filename for HRIR
+receiver_yaw	60 			% Yaw (Azimuth) offset of receiver system (degrees) +ve slew left
+receiver_pitch	0			% Pitch (Elevation) offset of receiver system (degrees) +ve nose up
+receiver_roll	0			% Roll offset of receiver system (degrees) +ve right wing down								
+%---------------------------------------------------------------------------------------------
+	Set the room surface absorptions							
+F_abs	125	250	500	1000	2000	4000	%Standard measurement frequencies (Hz)	
+Ax1	0.2	0.15	0.1	0.05	0.04	0.05	%Absorption of wall in x=0 plane (behind Receiver in plan)	
+Ax2	0.07	0.3	0.5	0.7	0.7	0.6	%Absorption of wall in x=Lx plane (front in plan)	
+Ay1	0.3	0.1	0.05	0.04	0.07	0.1	%Absorption of wall in y=0 plane (right in plan)	
+Ay2	0.3	0.1	0.05	0.04	0.07	0.1	%Absorption of wall in y=Ly plane (left in plan)	
+Az1	0.4	0.3	0.2	0.2	0.15	0.1	%Absorption of floor i.e. z=0 plane	
+Az2	0.1	0.3	0.8	0.85	0.75	0.65	%Absorption of ceiling i.e. z=Lz plane
+%----------------------------------------------------------------------------------------------
+Directionality  Single/Left		Right_(if present)
+azim_off	30			-60			% ]azimuth offset for sensor (degrees)
+elev_off	30			-30			% ]elevation offset for sensor
+roll_off	0			0			% ]roll offset for sensor	
+SENSOR_root	SENSOR			SENSOR			% The root of the SENSOR data base file									
+subdir1		Types			Types			% SENSOR sub-directory1 name
+filename	bidirectional.mat	unidirectional.mat	% Sensor filenames for Impulse Response
+%-----------------------------------------------------------------------------------------------
+SOURCES	R_s (m)	alpha (deg)	beta (deg)	% R_s = Radial distance(s) of source(s) from head (m).
+1	1	45		0		% alpha = Azimuth(s) of sources -180< alpha < 180 (deg) NB +ve is ACW on xy plane.	
+2	2	0		20		% beta = Elevation(s) of sources -90< beta < 90 (deg).
+3	1	-45		0		%
+					 	% To add a source
+						% 1)Add an entry row (Source Number TAB R_s TAB alpha TAB beta) below the existing values list above
+						% 2)Save the file		
+					 	% To change/remove a source:		
+						% 1) Clear or change any inappropriate existing values, OR
+						% 2) Remove the complete row (Source Number, R_s, alpha, beta)
+						%    NB there must be NO blank rows within the table.
+						% 3) Save the file.
+
+

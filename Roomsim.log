@@ -1,0 +1,44 @@
+
+
+Roomsim opened   04-Nov-2019 09:02:42
+
+
+
+Computer is not a Windows PC, assuming a Unix/Linux machine with no access to Excel
+MATLAB is a PC version
+Max number of array elements is 2.814750E+14 
+
+
+Roomsim opened   04-Nov-2019 09:02:52
+
+
+
+Computer is not a Windows PC, assuming a Unix/Linux machine with no access to Excel
+MATLAB is a PC version
+Max number of array elements is 2.814750E+14 
+
+
+ roomsim_setup: Text file used for setup was Z:\Work_Space\Roomsim_Campbell_st\Text_setups_GMM\GMM\setup_pos_3.txt
+
+ Speed of sound  c = 343 m/s 
+
+ Length (Depth) (Lx) of room =   5.10 m
+ Width (Ly) of room =   7.10 m
+ Height (Lz) of room =   3.00 m
+
+ RT60 estimate: Air absorption makes  7.21 percent difference in this room.
+
+ Reverberation Times by Norris_Eyring estimator
+ At frequency =    125 Hz RT60 =      0.5 s
+ At frequency =    250 Hz RT60 =      0.5 s
+ At frequency =    500 Hz RT60 =   0.5001 s
+ At frequency =   1000 Hz RT60 =   0.5001 s
+ At frequency =   2000 Hz RT60 =   0.5001 s
+ At frequency =   4000 Hz RT60 =      0.5 s
+
+ Estimate of Room break frequencies (uses mean of above RT60's =      0.5 s),
+ F1 =     48 Hz. Lowest room mode, i.e. below F1 no resonant support for sound in room
+ Between F1 and F2 room modes dominate
+ F2 =    128 Hz. Approximate cutoff (crossover) frequency
+ Between F2 and F3 diffraction and diffusion dominate
+ F3 =    514 Hz. Above F3 specular reflections and ray acoustics are valid

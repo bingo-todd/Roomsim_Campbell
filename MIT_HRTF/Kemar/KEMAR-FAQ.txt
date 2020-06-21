@@ -1,0 +1,603 @@
+
+Frequently asked questions about KEMAR HRTF data.
+
+Originally created 5/24/95. Last revised 1/27/97.
+
+Bill Gardner (billg@media.mit.edu) and Keith Martin (kdm@media.mit.edu)
+Perceptual Computing Group
+MIT Media Lab, rm. E15-401
+20 Ames Street
+Cambridge MA 02139
+
+If you haven't done so yet, please read the documentation "hrtfdoc"
+regarding the KEMAR HRTF data. The documentation describes what the
+data is, how it was measured, and how to download it. However, since
+the original documentation was written we have added a number of files
+to this archive, including the diffuse-field equalized data and the
+3Daudio program. These are not described in "hrtfdoc".
+
+List of questions:
+
+Q1. An error occurs when the data is unpacked, or all the files do not 
+show up when untar'd?
+Q2. When I telnet to "sound.media.mit.edu", I can't login as anonymous?
+Q3. How do I read the data?
+Q4. How do I read the data in MATLAB?
+Q5. How do I read the data on a Macintosh? Can I convert to AIFF files?
+Q5a. How do I read the data on a PC? What are ".tar.Z" files and ".ps.Z"
+files?
+Q6. The maximum values in the data do not agree with the documentation?
+Q7. Why are the headphone and speaker impulse responses 16383 samples 
+long?
+Q8. How was KEMAR configured?
+Q9. Addresses/numbers for Knowles and Etymotic?
+Q10. Why did we use two different pinnae?
+Q11. Is the interaural time delay factored out of the data?
+Q12. What causes the deep notches in the spectra in the 9-10 kHz region?
+Q13. The signal to noise ratio (SNR) of the contralateral responses is 
+much lower than the reported 65 dB SNR?
+Q14. How can the responses be equalized/normalized?
+Q15. How was the speaker response inverted?
+Q16. What is a minimum phase filter?
+Q17. How do we use these HRTFs to build a 3d audio system?
+Q18. What is convolution? Is it pairwise multiplication?
+Q19. Can the HRTFs be used at different sampling rates?
+Q20. How does one control the perception of source distance?
+Q21. Is there any public domain software to do spatialization?
+Q22. Headphone questions.
+Q23. Why are there left and right ear measurements of the headphones?
+
+
+Q1. An error occurs when the data is unpacked, or all the files do not 
+show up when untar'd?
+
+When transferring the files using ftp, make sure you have specified 
+BINARY transfer mode. ASCII mode (the default) may convert carriage 
+return and newline characters, thus corrupting the data. This will 
+either lead to error messages, or incomplete or otherwise corrupted 
+data.
+
+Q2. When I telnet to "sound.media.mit.edu", I can't login as anonymous?
+
+Don't use telnet, use ftp.
+
+Q3. How do I read the data?
+
+The data is stored as raw 16-bit integers, in "big-endian" format. This 
+is the same format used by Macintoshes and SGI's, where the most 
+significant bytes occurs in the lower memory address. If you have a 
+"little-endian" machine (i.e. DEC or IBM PC compatible), then you need 
+to swap the bytes of the data. The stereo files (compact data) are 
+stored with the two channels interleaved L0, R0, L1, R1, and so on.
+
+Q4. How do I read the data in MATLAB?
+
+This is particularly easy, since MATLAB has an option for reading "big-
+endian" data. The following code reads one of the compact data files and 
+splits it into stereo channels.
+
+	fp = fopen('H-10e090a.dat','r','ieee-be');
+	data = fread(fp, 256, 'short');
+	fclose(fp);
+
+	leftimp = data(1:2:256);
+	rightimp = data(2:2:256);
+
+We will soon release MATLAB scripts to read the HRTF data.
+
+Q5. How do I read the data on a Macintosh? Can I convert to AIFF files?
+
+On the Mac, you can use MATLAB of course, but you may also want to 
+convert the files to Sound Designer II (SDII) format or AIFF.  To 
+convert to SDII format, first find an SDII stereo sound file, then use 
+ResEdit to copy all the STR resources, and then paste these into the 
+HRTF file, creating a new resource fork. Then change the Finder info 
+(again using ResEdit, or you can use FileTyper) so the type is 'Sd2f' 
+and the creator is 'Sd2a'.  Then you can use Sound Designer to convert 
+to AIFF if that's what you want.
+
+Actually, even simpler is to use Tom Erbe's SoundHack program. Use the 
+"Open Any..." command and open an HRTF file. It will give you an error 
+saying no header, but that's OK. You can then use the "Header Change..." 
+command to select stereo or mono (whichever applies), 16-bit data, 44.1 
+kHz sampling rate.  Then do a "Save As..." and you can select any output 
+format you want. SoundHack has a convolution feature, and even does 
+spatialization using a set of HRTFs.
+
+Q5a. How do I read the data on a PC? What are ".tar.Z" files and ".ps.Z"
+files?
+
+As explained in the documentation, ".tar.Z" files are UNIX tar files
+(for "tape archive") that have been compressed using the UNIX compress
+program. A file extension of ".ps.Z" indicates the file is a Postscript
+document that has been compressed.
+
+Here are some instructions for setting up Netscape 2.0 on a PC for 
+downloading ".ps", ".tar", and ".Z" files using helper applications.  Note 
+that ".Z" files are UNIX compress files which are not the same as PC ".zip" 
+files.
+
+The "tar4dos" program and "comp430d" program are PC versions of the UNIX
+tar and compress/uncompress commands. They can be downloaded from:
+
+    gopher://spib.rice.edu:70/11/SPIB/utilities
+
+(follow the "pc" link)
+
+The files are in zip format, so you need to unzip them. The "comp430d.exe"
+program should be duplicated to both "compress.exe" and "uncomp.exe"
+as explained in the documentation.
+
+There is a postscript viewer for PC's at:
+
+    http://www.cs.wisc.edu/~ghost/index.html
+
+After downloading/unzipping the appropriate files, you end up with the
+"GSView" program that can display postscript files in a window.
+
+It should go without saying that these links and associated software
+are subject to change without notice.
+
+Now, to set up Netscape 2.0 to do the right thing, you go to the Options 
+menu and select General preferences, and then select Helpers.  For the 
+extension "Z", select "Launch application" and "Browse" to the "uncomp.exe" 
+file and select it.  Repeat this procedure for the extension "tar", 
+selecting "tar.exe", and for "ps" select "GSView.exe".  Netscape should 
+now automatically call these programs when downloading files with one of 
+these extensions.
+
+Note that Netscape will by default put things in the temporary
+directory, selected in the General preferences "Applications" dialog.
+
+Unfortunately, there is a problem that prevents Netscape from interpreting 
+multiple extensions, such as "myfile.ps.Z".  This will be downloaded into 
+"myfile_ps.Z" (in the temp directory) and then "uncomp" will be called to 
+uncompress it, leaving the file "myfile_ps".  To view or print this, you 
+need to do it manually.
+
+Q6. The maximum values in the data do not agree with the documentation?
+
+The maximum values in the data are:
+
+The left ear (full) data: -26793 in file "L40e289a.dat", as reported.
+
+The right ear (full) data: +29877 in file "R40e039a.dat", as reported.
+
+The compact data: -30496 in file "H-10e100a.dat". This was originally 
+reported as occurring in file "H-30e048a.dat", which was a mistake. The 
+documentation has since been corrected. Note that the documentation 
+reports the absolute values of the maxima.
+
+If the maximum values are not the same, then your data is incorrect. The 
+most likely reason, besides a transfer problem (see Q1), is that the 
+high and low bytes of the 16-bit data need to be swapped, (see Q3).
+
+Q7. Why are the headphone and speaker impulse responses 16383 samples 
+long?
+
+We had intended to crop them to 512 samples, but we forgot.
+
+Q8. How was KEMAR configured?
+
+The mannequin head and torso is usually referred to simply as KEMAR 
+(Knowles Electronics Mannequin for Acoustics Research). The Mannequin 
+head and torso is model DB-4004 (which includes model DB-062 head and 
+model DB-127 torso). The torso was equipped with two neck rings 
+(included with model DB-4004).  The pinnae come in small (model DB-060 = 
+right, DB-061 = left) and "large-red" (model DB-065 = right, DB-066 = 
+left) sizes. For our measurements, the left pinna was model DB-061, and 
+the right pinna was model DB-065 (see Q10). The ears were fitted with 
+canal extensions (model DB-050, one for each ear) that couple to the 
+occluded ear simulators (model DB-100, one for each ear). The occluded 
+ear simulators are Zwislocki couplers that simulate the terminating 
+impedance of the eardrum. 'Eardrum' pressure was measured with Etymotic 
+Research ER-11 microphones (which come with preamplifiers). The 
+preamplifiers were set to have flat equalization (no diffuse-field 
+equalization).
+
+A excellent description of the design of KEMAR can be found in
+reference [13].
+
+Q9. Addresses/numbers for Knowles and Etymotic?
+
+Knowles Electronics
+1151 Maplewood Drive
+Itasca, Illinois  60143
+phone:  (708) 250-5100
+fax:    (708) 250-0575
+
+Etymotic Research
+61 Martin Lane
+Elk Grove Village, Illinois  60007
+phone:  (708) 228-0006
+fax:    (708) 228-6836
+
+Q10. Why did we use two different pinnae?
+
+This response taken from [4]:
+
+It was desired to obtain HRTFs for both the "small" and "large red" 
+pinna styles.  If the KEMAR had perfect medial symmetry, including the 
+pinnae, then the resulting set of HRTF measurements would be symmetric 
+within the limits of measurement accuracy.  In other words, the left ear 
+response at azimuth theta would be equal to the right ear response at 
+azimuth 360 - theta.  It was decided that an efficient way to obtain 
+symmetrical HRTF measurements for both the "small" and "large red" 
+pinnae was to install both pinnae on the KEMAR simultaneously, and 
+measure the entire 360 degree azimuth circle.  This yields a complete 
+set of symmetrical responses for each of the two pinna, by associating 
+each measurement at azimuth theta with the corresponding measurement at 
+azimuth 360 - theta.  For example, to form the symmetrical response pair 
+for the "small" pinna (which was mounted on the left ear), given a 
+source location at 45 degrees right azimuth, the left ear response at 45 
+degrees (contralateral response) would be paired with the left ear 
+response at 315 degrees azimuth (simulated ipsilateral response).  Such 
+a symmetrical set will not exhibit interaural differences for sources in 
+the median plane, which has been shown to be a localization cue.  
+Assuming an HRTF is negligibly affected by the shape of the opposite 
+pinna, these symmetrical sets should be the same as sets obtained using 
+matched pinnae.
+
+Q11. Is the interaural time delay factored out of the data?
+
+No. The interaural time delay is still present in the data. Any 
+processing done to the data (filtering or cropping) was done to both 
+channels in the same manner (and thus does not affect interaural 
+differences).
+
+Q12. What causes the deep notches in the spectra in the 9-10 kHz region?
+
+In general, high frequency notches in HRTFs are caused by interaction
+of the incident sound with the external ear. The particularly deep
+notch in the 9-10 kHz region, which is very visible in the horizontal
+responses, is probably due to a concha resonance. An excellent
+description of the various spectral features and their physical causes
+is given by Lopez-Poveda and Meddis [16]. Many of their plots are derived
+from this KEMAR data.
+
+Q13. The signal to noise ratio (SNR) of the contralateral responses is 
+much lower than the reported 65 dB SNR?
+
+The SNR figure of 65 dB was for frontal incidence, and is thus better 
+than the contralateral responses, where the signal power drops 
+considerably. We did not caclulate the average SNR across all 
+measurements.
+
+Q14. How can the responses be equalized/normalized?
+
+There are many possibilities. Currently, the "full" data set for the two 
+pinnae are unequalized, and thus contain the frequency response of the 
+measurement system, including the speaker, microphone, and electronics. 
+In retrospect, we should have measured the free field response of the 
+speaker using one of the Etymotic ER-11 microphones, but we didn't want 
+to disassemble the KEMAR. If we had made this measurement, equalizing to 
+this reference would have been ideal, since the response of the 
+measurement system would be completely factored out.  Instead, we 
+measured the response of the speaker using a Neumann KMi 84 microphone 
+(cardioid). The compact data is equalized according to this reference, 
+and therefore will still contain whatever difference exists between the 
+Neumann and Etymotic microphones. More precisely, the compact data is 
+equalized using a minimum phase inverse filter derived from the Neumann 
+measurement of the speaker (see Q15 and Q16), so the compact data may 
+contain phase aberrations of the measurement system that are not 
+necessarily part of the HRTFs.
+
+Another problem is that both the full data and compact data include the 
+ear canal resonance. When these HRTFs are used in an auditory display, 
+the listener will hear the KEMAR ear canal resonance in addition to 
+his/her own ear canal resonance.  Often, HRTF measurements are made at 
+the entrance of the ear canal to eliminate the ear canal resonance.  To 
+remove the ear canal resonance frm the KEMAR data, one can equalize the 
+responses based on published data of ear canal resonances (for instance, 
+see [6,7]). Another possibility is to equalize the responses using the 
+inverse filter for the headphone responses, which also contain the ear 
+canal resonance (see [12]).
+
+A different strategy can be used to factor out both the measurement 
+system response and ear canal response.  This is to normalize the 
+measurements with respect to a specific free field direction (called 
+free field equalization), or with respect to an average across all 
+directions (called diffuse-field equalization) [5].  In both cases, the 
+measurement system response and the ear canal response (neither of which 
+change as a function of sound direction) will be factored out of the 
+data.  An example of free-field equalization is Shaw's published data 
+[10], where all the responses are normalized with respect to frontal 
+incidence.  When equalizing according to a diffuse-field average, one 
+must decide how to form the average. It is possible to average the 
+magnitude responses across all incident directions, or to average the 
+magnitude squared responses.  The latter is a power average across all 
+directions, and has a clear physical interpretation.
+
+The MATLAB script "do_diffuse_eq.m" found in "matlab_scripts.tar.Z"
+creates the diffuse-field equalized data set "diffuse.tar.Z" by
+forming the power spectrum average across all incident directions, and
+inverting this using a minimum phase inverse filter. This data set is
+sampled at 44.1 kHz. The "diffuse32k.tar.Z" data set is the
+diffuse-field equalized data resampled to 32 kHz. sampling rate. One can
+use these HRTFs with a diffuse-field equalized headphone, such as the
+AKG-K240.
+
+A complete discussion of equalization techniques is beyond the scope of 
+this FAQ.  If the HRTFs are to be used in an auditory display, it is 
+necessary to consider the complete playback system to decide on an 
+equalization strategy (see [1,5,7,11,12,14]).  We recommend reading the 
+references for more information.
+
+Q15. How was the speaker response inverted?
+
+The details of inverse filter creation were omitted from the 
+documentation, because the inverse filters were only included for people 
+who might want to duplicate the creation of the "compact" data set from 
+the "full" set.  The filters were somewhat hacked together, and are not 
+intended to be ideal by any means.
+
+We'll try to reconstruct the process used to create the inverse filters. 
+The entire process was performed in MATLAB.
+
+The "Opti-inverse.dat" filter:
+
+Taking the first 512 points of the raw response, we padded with zeros to 
+8192 points.
+The response was divided by 2^14 to normalize to +/- 1.
+The 8192 point FFT was performed and the magnitude and phase were saved
+as two separate vectors.
+All magnitudes smaller than -20dB (Re 1) were clipped to -20dB.
+All magnitudes were inverted (replaced by their multiplicative inverse).
+All phases were negated.
+Above 15kHz, the magnitude was set to the magnitude at 15kHz.
+The inverse FFT was performed.
+The result was rotated so that the maximum value occured at index 4096.
+The result was multiplied by a 2048 point raised cosine window centered
+at index 4096.
+The result was multiplied by 2^14 and saved as 16-bit shorts.
+
+The "Opti-minphase.dat" filter:
+
+The "rceps" (or real cepstrum) command in MATLAB ws used to obtain a 
+minimum phase signal derived from the "Opti-inverse.dat" filter.  This 
+was truncated to 2048 points.  Details of the real cepstrum algorithm 
+are in Oppenheim and Schafer [9].
+
+There may be a few minor inaccuracies in the inverse filter creation 
+process as described above, but the basic process is described. We will 
+be releasing MATLAB code to perform filter inversion.
+
+Q16. What is a minimum phase filter?
+
+Ouch. We will try to give a brief, intuitive, and partially correct 
+explanation, but if you need to learn more about this topic, you should 
+take a course in signal processing or look at Oppenheim and Schafer's 
+DSP book [9].  A filter's impulse response in the frequency domain has a 
+magnitude and phase response which are both functions of frequency.  
+Every impulse response has a minimum phase representation which has the 
+same magnitude response as the original filter, but a phase response 
+which is minimized in a particular way, such that the minimum phase 
+filter has the least amount of time smear possible.  Consequently, 
+minimum phase filters are compacted in time, and are therefore 
+computationally efficient for obtaining a desired magnitude response.  
+Also, the phase response of a minimum phase filter can be calculated
+from the magnitude response (find information on the cepstrum and the 
+Hilbert transform in [9]).  Finally, minimum phase filters have an 
+important property regarding invertibility: they are invertible using a 
+stable, causal filter.
+
+Q17. How do we use these HRTFs to build a 3d audio system?
+
+The basic idea is shown below (the figure was sent in by one of the 
+users of the data). The input signal x[n] must be convolved with the 
+appropriate pair of HRTFs and then presented to the listener binaurally 
+(usually this is done using headphones, but transaural presentation [2] 
+using speakers is also possible).  The apparent source position can be 
+changed by selecting the appropriate pair of HRTFs.  However, to prevent 
+clicks in the output, it is necessary to perform some sort of 
+interpolation to smooth the transition. For more information, see [1,5].
+
+                  ______________
+                 |              |
+                 | Right Ear    |
+          +----->| x[n] * hR[n] |----+
+          |      | (FIR filter) |    |        /---------\
+          |      |______________|    |       |           |
+  Input   |                          |    +--|   O   O   |--+
+  x[n] ---+                          +--->|  |     *     |  |<--+
+          |                               +--|           |--+   |
+          |                                  |   \___/   |      |
+          |       ______________              \_________/       |
+          |      |              |                               |
+          |      | Left Ear     |                               |
+          +----->| x[n] * hL[n] |-------------------------------+
+                 | (FIR filter) |
+                 |______________|
+
+
+Q18. What is convolution? Is it pairwise multiplication?
+
+Convolution isn't pairwise multiplication. The equation for discrete 
+time convolution is:
+
+       i = N-1
+        ----
+        \
+y[n] =   >  x[n-i] * h[i]
+        /
+        ----
+       i = 0
+
+Where h[n] is the N-point impulse response of the filter, perhaps a 128-
+point HRTF, x[n] is the input signal, and y[n] is the output signal.  
+This equation implements an N-point finite impulse response (FIR) 
+filter.
+
+If this doesn't clarify things, you should look at a signal processing 
+book. You would probably be interested in Durand Begault's recent book 
+on 3-D audio [1], which describes all of this stuff without getting too 
+technical. For a real dose of signal processing, look at Oppenheim and 
+Schafer, "Discrete Time Signal Processing", which is the standard text 
+used at MIT [9].
+
+Q19. Can the HRTFs be used at different sampling rates?
+
+Yes, but it is necessary to resample the data appropriately.  We don't 
+know of a good public domain program that resamples.  You can do it in 
+MATLAB using the interp and decimate functions, but it is very 
+inefficient.  Another consideration is that the HRTFs won't work as 
+effectively at very low sampling rates, because the high frequency 
+pinnae cues will be missing.  We have released a set of diffuse-field
+equalized HRTFs resampled to 32 kHz (in the file "diffuse32k.tar.Z").
+
+Q20. How does one control the perception of source distance?
+
+The HRTFs were measured at constant distance (1.4 meters) in an anechoic 
+chamber.  Due to the spherical expansion of sound, sound pressure falls 
+off as 1/r, where r is the distance to the source.  Thus, if we measured 
+the HRTFs at distances greater than 1.4 meters, we would expect the 
+amplitude to fall off in inverse proportion to the distance.  We would 
+not expect the interaural differences to change as a function of 
+distance, because the incident sound is essentially a plane wave.  
+However, at small distances close to the head (under 1 meter), the 
+curvature of the wavefront becomes significant, and we would expect 
+qualitative differences in the HRTFs as a function of distance.  We did 
+not measure a set of "near-head" HRTFs. At large distances from the
+head, atmospheric effects including dispersion and lowpass filtering
+can audibly alter the spectrum of incident sound, but these affect both
+ear responses the same.
+
+In general, it is not a problem to synthesize headphone signals that are 
+perceived near the head.  On the contrary, the problem is to get sounds 
+to be externalized (i.e. distant from the head).  The principal cue used 
+in distance perception is the ratio of direct sound to reflected sound 
+(reverberation).  In a typical reverberant space (a room), the level of 
+reverberation doesn't depend on the distance to the source.  To use a 
+water analogy, consider what a swimming pool looks like moments after 
+someone has jumped in.  The random waves in the pool will all have the 
+same amplitude (except near the edges) regardless of where the initial 
+disturbance was.  However, the first waves caused by the impact do decay 
+as a function of distance to the "source".  Thus in a reverberant 
+environment it it possible to estimate the source distance by comparing 
+the direct energy in an onset event to the background energy of the 
+reverberation.
+
+In order to synthesize a distance cue, one simply needs to pass the 
+source sound through a reverberator, and mix a constant amount of stereo 
+(uncorrelated) reverberation into the final binaural signal.  Then, to 
+change apparent source distance, the level of the direct spatialized 
+sound is changed in inverse proportion to distance, while the 
+reverberant level stays constant at all times.  A really good simulation 
+would consider the geometry of the space and synthesize appropriate 
+early reflections in addition to the late reverberation. It is also
+possible to simulate atmospheric effects to suitably alter the timbre
+of very distant sounds.
+
+Q21. Is there any public domain software to do spatialization?
+
+Yes, we have released the "3Daudio" program that uses the KEMAR HRTFs
+to spatialize a single source at 32 kHz. The program and source code
+is available in the file "3Daudio.tar.Z".  Position control is
+currently done via MIDI.  The program will only work on SGI machines
+(written on an Indigo).  It uses the fast SGI FFT routines to do the
+convolution.
+
+Interested users should also check out the Virtual Sonic Space (VSS)
+program for SGI Indigos written by Rick Bidlack. It is a 3D audio
+program that uses the KEMAR HRTFs, and features a graphical front end,
+doppler shift, and distance (amplitude) control. Source code is
+available. There is a link to this program on the KEMAR web page.
+It can be found at:
+
+ftp://accessone.com/pub/misc/release/
+
+Q22. Headphone questions:
+
+* The AKG K240 is "circumaural". Those are the big headphones, correct?
+* For the Sennheiser HD480 you say "supraaural, open air". Supraaural 
+means it covers only a part of the pinnae, upon the cavum conchea, 
+correct?
+* Then what do you mean by "open air"?
+* For the Radio Shack Nova 38 you say "supraaural, walkman style". Do 
+you mean the old-style walkman headphones?
+* You describe the Sony Twin Turbo as "intraural, ear plug style". 
+Intraural means that it's directly plugged into the auditory canal and 
+covers only a little part of the cavum conchea. But there are 2 styles 
+of these kind of headphones; one has its surface parallel to the eardrum 
+and the other one has its surface perpendicular to the eardrum. The 
+latter has always a metal bar upon the head connecting the 2 headphones. 
+Which style are the Twin Turbos?
+
+The AKG K240 circumaural headphones are the large headphones that cover 
+the entire ear (and pinna). The Sennheiser HD480 supraaural headphones 
+press against the pinna. They really aren't "open air", but rather have 
+cushions made of (acoustically transparent?) foam. The Radio Shack Nova 
+headphones are indeed the old style walkman headphones, with rather 
+small foam cushions. The Sony Twin Turbo headphones plug into the ear 
+and are not the perpendicular variety you mentioned. These seal the ear 
+canal, more or less, and the transducer projects directly into the ear 
+canal (and the two plugs are not connected by a structural element).
+
+Q23. Why are there left and right ear measurements of the headphones?
+
+It was convenient to do so. We would expect the two measurements to be 
+similar, but not exactly the same, as the two pinnae were different 
+models.  For the in-ear headphones, we would expect a lot of variation 
+depending on the exact placement of the phone in the ear canal.  We 
+didn't do any repeatability measurements for the headphone responses, 
+and in retrospect, we don't expect the headphone responses to be of 
+great use to anyone, since the responses probably vary quite a lot with 
+placement on the head, volume of ear canal, etc. (see [7,8]).
+
+
+REFERENCES
+
+[1] Durand R. Begault, 3-D Sound for Virtual Reality and Multimedia, 
+Academic Press, Cambridge MA, 1994.
+
+[2] Cooper, D. H., and Bauck, J. L., "Prospects for transaural 
+recording", J. Audio Eng. Soc. 37, 3-19, 1989.
+
+[3] Gardner, W. G., and Martin, K. D., "HRTF measurements of a KEMAR 
+dummy head microphone", MIT Media Lab Perceptual Computing Technical 
+Report #280, 1994.
+
+[4] Gardner, W. G., and Martin, K. D., "HRTF measurements of a KEMAR", 
+J. Acoust. Soc. Am 97 (6), 1995.
+
+[5] J. M. Jot, Veronique Larcher, Olivier Warusfel, "Digital signal 
+processing issues in the context of binaural and transaural 
+stereophony", Proceedings of the Audio Engineering Society, 1995.
+
+[6] Mehrgardt, S. and V. Mellert, "Transformation characteristics of the 
+external human ear", J Acoust. Soc. Am. 61, 1567-1576, 1977.
+
+[7] H. Moller, D. Hammershoi, C. B. Jensen, and M. F. Sorenson, 
+"Transfer Characteristics of Headphones Measured on Human Ears", J. 
+Audio Eng. Soc., vol. 43 (4), 203-217, 1995.
+
+[8] H. Moller, C. B. Jensen, D. Hammershoi, and M. F. Sorenson, "Design 
+Criteria for Headphones", J. Audio Eng. Soc., vol. 43 (4), 218-232, 
+1995.
+
+[9] Alan V. Oppenheim and Ronald W. Schafer,  Discrete Time Signal 
+Processing, Prentice Hall, Englewood Cliffs, NJ, 1989.
+
+[10] Shaw, E. A. G. and Vaillancourt, M. M., "Transformation of sound-
+pressure level from the free field to the eardrum presented in numerical 
+form", J. Acoust. Soc. Am, 78, 1120-1122, 1985.
+
+[11] Theile, G., "On the standardization of the frequency response of 
+high-quality studio headphones,", J. Audio Eng. Soc., 34, 953-969, 1986.
+
+[12] F. L. Wightman and D. J. Kistler, "Headphone simulation of free-
+field listening," J. Acoust. Soc. Am., vol 85, pp 858-878.
+
+[13] Burkhard, M. D., and Sachs, R. M. (1975). "Anthropometric manikin
+for acoustic research", J. Acoust. Soc. Am., 58, 214-222.
+
+[14] Moller, H. (1992). "Fundamentals of Binaural Technology", Applied 
+Acoustics, 36, 171-218.
+
+[15] Moller, H., Hammershoi, D., Jensen, C. B., and Sorensen,
+M. F. (1995a). "Transfer Characteristics of Headphones Measured on
+Human Ears", J. Audio Eng. Soc., 43(4), 203-217.
+
+[16] Lopez-Poveda, E. A., and Meddis, R. (1996). "A physical model of
+sound diffraction and reflections in the human concha," J. Acoust. Soc.
+Am., 100(5), 3248-3259.

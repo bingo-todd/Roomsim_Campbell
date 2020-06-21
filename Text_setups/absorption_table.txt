@@ -1,0 +1,40 @@
+This table provides the surface absorption data for the room simulation "roomsim".												
+ You can copy and paste surface absorptions from the required row (columns B to G) to rows 3 to 8 of the surface absorption sheet												
+												
+ This table is also read to provide the surface absorption list for the manual data entry option of Roomsim												
+ To add a surface type: 1) Add an entry to the foot of the Surface absorption data list below 2) Save the file.												
+ DO NOT PLACE ANYTHING ABOVE OR ANYTHING OTHER THAN SURFACE DATA BELOW THE TABLE as that would disrupt the reading process.												
+												
+ References for data frequency dependent absorption coefficients of various surfaces.												
+(A1) D. E. Hall, "Musical Acoustics", 2nd Ed, Brooks/Cole Publishing, 1991.  Taken from the list at (A3).												
+(A2) F. Alton Everest, "The Master Handbook of Acoustics", McGraw-Hill, 3rd Ed, 1994."												
+(A3) http://hyperphysics.phy-astr.gsu.edu/hbase/acoustic/revmod.html#c4 (Nov 2002)												
+(A4) B J Smith, R J Peters, S Owen, "Acoustics and noise control", Adison Wesley Longman, 2nd Ed. 1998.												
+												
+	Surface absorption data											
+F_abs				125	250	500	1000	2000	4000	% Standard measurement frequencies (Hz)					
+anechoic			1	1	1	1	1	1	% Simulated Anechoic Chamber i.e. total absorption at all frequencies					
+quiet_room			0.9	0.9	0.9	0.9	0.9	0.9	% Simulated Quiet Room i.e. High absorption at all frequencies
+percent50			0.75	0.75	0.75	0.75	0.75	0.75	% 50% reflectance at all frequencies. Used for testing impulse amplitude calculations.
+echoic				0.01	0.01	0.01	0.01	0.01	0.01	% Very echoic room i.e.little absorption at any frequency
+acoustic_tile_average		0.1	0.3	0.8	0.85	0.75	0.65	% "Average acoustic tile 3/4"" thick (Ref A2)"
+acoustic_tile_rigid		0.2	0.4	0.7	0.8	0.6	0.4	% Acoustic tile rigid mount (Ref A1).
+acoustic_tile_suspended		0.5	0.7	0.6	0.7	0.7	0.5	% Acoustic tile suspended mount (Ref A1).
+acoustic_plaster		0.1	0.2	0.5	0.6	0.7	0.7	% Acoustical plaster (Ref A1).
+plaster_on_lath			0.2	0.15	0.1	0.05	0.04	0.05	% Ordinary plaster on lath (Ref A1).
+gypsum_wallboard		0.3	0.1	0.05	0.04	0.07	0.1	% Gypsum wallboard (Ref A1).
+plywood				0.6	0.3	0.1	0.1	0.1	0.1	% " Plywood sheet, 1/4"" on studs (Ref A1)."
+brick				0.03	0.03	0.03	0.04	0.05	0.07	% Brick (Ref A1).
+conc_unpaint			0.4	0.4	0.3	0.3	0.4	0.3	% Concrete unpainted (Ref A1).
+conc_paint			0.1	0.05	0.06	0.07	0.1	0.1	% Concrete painted (Ref A1).
+conc_poured			0.01	0.01	0.02	0.02	0.02	0.03	% Concrete poured (Ref A1).
+vinyl_tile_on_concrete		0.02	0.03	0.03	0.03	0.03	0.02	% Vinyl tile on concrete (Ref A1).
+heavy_carpet_on_concrete	0.02	0.06	0.15	0.4	0.6	0.6	% Heavy Carpet on concrete (Ref A1).
+heavy_carpet_felt_backing	0.1	0.3	0.4	0.5	0.6	0.7	% Heavy carpet on felt backing (Ref A1).					
+platform_floor_wooden		0.4	0.3	0.2	0.2	0.15	0.1	% Platform floor wooden (Ref A1).					
+ordinary_window_glass		0.3	0.2	0.2	0.1	0.07	0.04	% Ordinary window glass (Ref A1).					
+heavy_plate_glass		0.2	0.06	0.04	0.03	0.02	0.02	% Ordinary window glass (Ref A1).					
+glazed_wall			0.01	0.01	0.01	0.01	0.01	0.01	% " Glazed tiles, polished marble or stone (Ref A4)."					
+draperies_medium_velour		0.07	0.3	0.5	0.7	0.7	0.6	% Draperies medium velour (Ref A1).					
+water				0.01	0.01	0.01	0.01	0.01	0.01	% eg swimming pool (Ref A4).					
+												
