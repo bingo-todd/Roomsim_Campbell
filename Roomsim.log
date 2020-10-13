@@ -1,44 +1,52 @@
 
 
-Roomsim opened   04-Nov-2019 09:02:42
+Roomsim opened   28-Jan-2018 16:31:16
 
 
 
 Computer is not a Windows PC, assuming a Unix/Linux machine with no access to Excel
-MATLAB is a PC version
+MATLAB is a Unix/Linux version
 Max number of array elements is 2.814750E+14 
 
 
-Roomsim opened   04-Nov-2019 09:02:52
-
-
-
-Computer is not a Windows PC, assuming a Unix/Linux machine with no access to Excel
-MATLAB is a PC version
-Max number of array elements is 2.814750E+14 
-
-
- roomsim_setup: Text file used for setup was Z:\Work_Space\Roomsim_Campbell_st\Text_setups_GMM\GMM\setup_pos_3.txt
+ roomsim_setup: Text file used for setup was /home/st/Work_Space/room_simulation/Roomsim_ Campbell/Text_setups/setup_MIT_K.txt
 
  Speed of sound  c = 343 m/s 
 
- Length (Depth) (Lx) of room =   5.10 m
- Width (Ly) of room =   7.10 m
- Height (Lz) of room =   3.00 m
+ Length (Depth) (Lx) of room =   4.00 m
+ Width (Ly) of room =   3.00 m
+ Height (Lz) of room =   2.75 m
 
- RT60 estimate: Air absorption makes  7.21 percent difference in this room.
+ RT60 estimate: Air absorption makes  1.09 percent difference in this room.
 
  Reverberation Times by Norris_Eyring estimator
- At frequency =    125 Hz RT60 =      0.5 s
- At frequency =    250 Hz RT60 =      0.5 s
- At frequency =    500 Hz RT60 =   0.5001 s
- At frequency =   1000 Hz RT60 =   0.5001 s
- At frequency =   2000 Hz RT60 =   0.5001 s
- At frequency =   4000 Hz RT60 =      0.5 s
+ At frequency =    125 Hz RT60 =  0.06135 s
+ At frequency =    250 Hz RT60 =  0.06134 s
+ At frequency =    500 Hz RT60 =  0.06133 s
+ At frequency =   1000 Hz RT60 =  0.06129 s
+ At frequency =   2000 Hz RT60 =  0.06114 s
+ At frequency =   4000 Hz RT60 =  0.06068 s
 
- Estimate of Room break frequencies (uses mean of above RT60's =      0.5 s),
- F1 =     48 Hz. Lowest room mode, i.e. below F1 no resonant support for sound in room
+ Estimate of Room break frequencies (uses mean of above RT60's =  0.06119 s),
+ F1 =     86 Hz. Lowest room mode, i.e. below F1 no resonant support for sound in room
  Between F1 and F2 room modes dominate
- F2 =    128 Hz. Approximate cutoff (crossover) frequency
+ F2 =     81 Hz. Approximate cutoff (crossover) frequency
  Between F2 and F3 diffraction and diffusion dominate
- F3 =    514 Hz. Above F3 specular reflections and ray acoustics are valid
+ F3 =    326 Hz. Above F3 specular reflections and ray acoustics are valid
+
+ Impulse response length = 2705 samples
+
+ order_x = 3
+ order_y = 4
+ order_z = 4
+
+ Receiver =  mithrir
+
+ Number of Images = 1190 for Source 1 . Time taken was   1.34 seconds
+
+ Impulse response saved to file H_ROOM_MIT_S1 
+
+ roomsim_run: Plot data has not been saved
+
+Closing Roomsim   28-Jan-2018 16:46:05
+

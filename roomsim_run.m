@@ -287,7 +287,7 @@ else, % Set up the air absorption model and estimate reverberation time RT60
     m_air=zeros(size(F_abs)); % Initialise air absorption to zero at octave frequencies
     [RT60 MFP]= reverberation_time(c,room_size,A,F_abs,m_air,RT60_estimator); % Estimate a room reverberation time RT60 WITHOUT air absorption
     if air_F, % Check effect of air on RT60
-        % The variation of air absorption coefficient "m" with humidity and frequency can be approximaCted by
+        % The variation of air absorption coefficient "m" with humidity and frequency can be approximated by
         %    (from L E Kinsler et al "Fundamentals of acoustics", 3rd Ed., Wiley, New York, 1982.
         m_air = 5.5E-4*(50/humidity)*(F_abs/1000).^(1.7); % Valid Ranges are: relative humidity 20%< h <70%, 1500< F_abs <10000 Hz.
         % Calculate a room reverberation time RT60, used to size impulse response length "H_length" and set "order".
